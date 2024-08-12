@@ -76,6 +76,6 @@ git clone https://github.com/asiata25/Masterbagasi.git
     php artisan serve
     ```
 
-### 4. API Documentation
+## API Documentation
 
 -   **Postman Collection:** The Postman collection for testing the API is available in the [postman_collection](docs/) file.
