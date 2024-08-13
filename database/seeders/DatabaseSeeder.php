@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Voucher;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,9 +19,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             ProductSeeder::class,
+            VoucherSeeder::class
         ]);
 
         $products = Product::all();
+        Voucher::all();
 
         User::factory(5)->create()->each(function ($user) use ($products) {
             $cart = Cart::factory()->create([

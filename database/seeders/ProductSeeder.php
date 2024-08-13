@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
         Product::create([
             'name' => 'shampo sunsilk',
             'price' => 9500,
-            'created_at' => Carbon::now()->subDays(rand(0, 7)),
+            'created_at' => fake()->dateTimeBetween(startDate: '-1 week'),
         ]);
 
         Product::create([
