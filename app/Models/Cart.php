@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Model
+class Cart extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function cart(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(Cart::class);
+        return $this->belongsTo(User::class);
     }
 }
