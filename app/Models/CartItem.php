@@ -11,6 +11,10 @@ class CartItem extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public $incrementing = false;
+    protected $primaryKey = ['cart_id', 'product_id'];
+    protected $keyType = 'array';
+
     public function cart(): BelongsTo
     {
         return $this->belongsTo(Cart::class);
