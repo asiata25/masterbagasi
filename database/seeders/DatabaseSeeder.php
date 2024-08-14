@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Voucher;
@@ -24,7 +25,7 @@ class DatabaseSeeder extends Seeder
 
         $products = Product::all();
         Voucher::all();
-
+        
         User::factory(5)->create()->each(function ($user) use ($products) {
             $cart = Cart::factory()->create([
                 'user_id' => $user->id
