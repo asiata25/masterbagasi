@@ -26,7 +26,15 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'username' => fake()->unique()->userName(),
-            'created_at' => fake()->dateTimeBetween(startDate: '-1 week')
+            'created_at' => fake()->dateTimeBetween(startDate: '-1 week'),
+            'password' => static::$password ??= Hash::make('password'),
         ];
+    }
+
+    public function withPassword($password): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'password' => Hash::make($password),
+        ]);
     }
 }

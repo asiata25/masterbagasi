@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         $products = Product::all();
         Voucher::all();
         
-        User::factory(5)->create()->each(function ($user) use ($products) {
+        User::factory(5)->withPassword('password' . rand(1, 5))->create()->each(function ($user) use ($products) {
             $cart = Cart::factory()->create([
                 'user_id' => $user->id
             ]);
