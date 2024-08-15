@@ -7,9 +7,10 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController implements HasMiddleware
 {
@@ -29,19 +30,14 @@ class ProductController implements HasMiddleware
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductRequest $request)
+    public function store(StoreProductRequest $request): JsonResponse
     {
-        //
+        $validated = $request->validated();
+        $product = Product::create($validated);
+
+        return response()->json(['data' => new ProductResource($product)])->setStatusCode(201);
     }
 
     /**
@@ -53,19 +49,16 @@ class ProductController implements HasMiddleware
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product): JsonResponse
     {
-        //
+        $validated = $request->validated();
+        $product->update($validated);
+        
+        return response()->json([
+            'message' => 'ok'
+        ]);
     }
 
     /**
