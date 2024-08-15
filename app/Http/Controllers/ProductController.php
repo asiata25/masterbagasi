@@ -20,11 +20,11 @@ class ProductController implements HasMiddleware
             new Middleware('auth:sanctum', except: ['index', 'show']),
         ];
     }
-    
+
     /**
      * Display a listing of the resource.
      */
-    public function index() : ProductCollection
+    public function index(): ProductCollection
     {
         return new ProductCollection(Product::all());
     }
@@ -55,7 +55,7 @@ class ProductController implements HasMiddleware
     {
         $validated = $request->validated();
         $product->update($validated);
-        
+
         return response()->json([
             'message' => 'ok'
         ]);
@@ -66,6 +66,10 @@ class ProductController implements HasMiddleware
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response()->json([
+            'message' => 'ok'
+        ]);
     }
 }
