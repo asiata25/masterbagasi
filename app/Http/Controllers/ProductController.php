@@ -4,16 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ProductController
+class ProductController implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth:sanctum', except: ['index', 'show']),
+        ];
+    }
+    
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() : ProductCollection
     {
-        //
+        return new ProductCollection(Product::all());
     }
 
     /**
@@ -35,9 +47,9 @@ class ProductController
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Product $product): ProductResource
     {
-        //
+        return new ProductResource($product);
     }
 
     /**
