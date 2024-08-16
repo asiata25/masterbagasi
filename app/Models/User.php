@@ -23,7 +23,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
-
+    
     protected function casts(): array
     {
         return [

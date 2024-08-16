@@ -11,6 +11,11 @@ class Voucher extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['code', 'active_at', 'expired_at', 'amount'];
+    
+    protected $primaryKey = 'code';
+    public $incrementing = false;
+
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
