@@ -17,13 +17,7 @@ Route::prefix('v1')->group(function () {
         'update'
     ])->middleware('auth:sanctum');
 
-    Route::apiResource('vouchers', VoucherController::class)->except(['index', 'show'])->middleware(['auth:sanctum', 'adminOnly']);
-    Route::middleware(['auth:sanctum', 'adminOnly'])->group(function () {
-        Route::apiResource('vouchers', VoucherController::class)->except(['index', 'show']);
-     
-        Route::get('/vouchers', [VoucherController::class, 'index'])->withoutMiddleware(['adminOnly']);
-        Route::get('/vouchers/{voucher}', [VoucherController::class, 'show'])->withoutMiddleware(['adminOnly']);
-    });
+    Route::apiResource('vouchers', VoucherController::class)->middleware(['auth:sanctum']);
 });
 
 // Route::get('/user', function (Request $request) {
