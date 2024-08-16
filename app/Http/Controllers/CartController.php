@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CartController
@@ -32,11 +33,11 @@ class CartController
         $user = Auth::user();
         $cart = Cart::find($user->id);
 
-        $productExist = $cart->cartItems()->where('product_id', $validated['product_id'])->first();
-        if ($productExist) {
+        $product_exist = $cart->cartItems()->where('product_id', $validated['product_id'])->first();
+        if ($product_exist) {
             $cart->cartItems()
                 ->where('product_id', $validated['product_id'])
-                ->update(['quantity' => $productExist->quantity + $validated['quantity']]);
+                ->update(['quantity' => $product_exist->quantity]);
         } else {
             $cart->cartItems()->create($validated);
         }
@@ -47,26 +48,15 @@ class CartController
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Cart $cart)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cart $cart)
+    public function destroy(int $item_id)
     {
-        //
+        $user = Auth::user();
+        $cart = Cart::where('user_id', $user->id)->first();
+
+        $cart->cartItems()->where('product_id', $item_id)->forceDelete();
+
+        return response()->json(["messege" => 'ok']);
     }
 }

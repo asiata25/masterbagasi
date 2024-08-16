@@ -11,7 +11,9 @@ Route::prefix('v1')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
     Route::apiResource('products', ProductController::class);
-    Route::apiResource('carts', CartController::class)->middleware('auth:sanctum');
+    Route::apiResource('carts', CartController::class)->except([
+        'show', 'update'
+    ])->middleware('auth:sanctum');
 });
 
 // Route::get('/user', function (Request $request) {
