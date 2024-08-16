@@ -19,12 +19,14 @@ class UserSeeder extends Seeder
             'username' => 'masterbagasi01',
             'name' => 'masterbagasi',
             'password' => Hash::make('password123'),
+            'role' => 'admin'
         ]);
 
         User::factory()->hasCart()->create([
             'username' => 'masterbagasi.Dua',
             'name' => 'masterbagasi dua',
             'password' => Hash::make('password123'),
+            'role' => 'admin'
         ]);
     }
 }
