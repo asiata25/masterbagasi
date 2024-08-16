@@ -20,11 +20,13 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             ProductSeeder::class,
-            VoucherSeeder::class
+            VoucherSeeder::class,
+            UserSeeder::class,
         ]);
 
         $products = Product::all();
         Voucher::all();
+        User::all();
         
         User::factory(5)->withPassword('password' . rand(1, 5))->create()->each(function ($user) use ($products) {
             $cart = Cart::factory()->create([
