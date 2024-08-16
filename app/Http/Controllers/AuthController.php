@@ -18,6 +18,7 @@ class AuthController
         ]);
 
         $user = User::create($validated);
+        $user->cart()->create();
         $token = $user->createToken($validated['username']);
 
         return response()->json([

@@ -11,6 +11,8 @@ class CartItem extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable= ['quantity'];
+
     public $incrementing = false;
     protected $primaryKey = ['cart_id', 'product_id'];
     protected $keyType = 'array';

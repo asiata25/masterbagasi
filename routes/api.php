@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,6 +11,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
     Route::apiResource('products', ProductController::class);
+    Route::apiResource('carts', CartController::class)->middleware('auth:sanctum');
 });
 
 // Route::get('/user', function (Request $request) {
