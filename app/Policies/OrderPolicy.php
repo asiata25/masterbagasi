@@ -11,7 +11,7 @@ class OrderPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function delete(User $user, Order $order): Response
+    public function modify(User $user, Order $order): Response
     {
         return $user->id == $order->user_id
         ? Response::allow()

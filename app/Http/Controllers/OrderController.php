@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderRequest;
+use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Voucher;
@@ -71,9 +72,13 @@ class OrderController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateOrderRequest $request, Order $order)
     {
-        //
+        Gate::authorize('modify', $order);
+        $validated = $request->validated();
+        $order->update($validated);
+
+        return response()->json(['message' => 'ok']);
     }
 
     /**
@@ -81,7 +86,7 @@ class OrderController
      */
     public function destroy(Order $order)
     {
-        Gate::authorize('delete', $order);
+        Gate::authorize('modify', $order);
 
         $order->orderItems()->delete();
         $order->delete();
