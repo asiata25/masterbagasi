@@ -36,11 +36,15 @@ class OrderController
 
         if (isset($validated['voucher_code'])) {
             $voucher = Voucher::find($validated['voucher_code']);
-            $voucher_code = $voucher->code;
-            $total -= $voucher->amount;
-            $total = $total < 0 ? 0 : $total;
+
+            if ($voucher) {
+                $voucher_code = $voucher->code;
+                $total -= $voucher->amount;
+                $total = max($total, 0);
+            }
         }
 
+        // BUG: voucher code is still null
         $order = Order::create([
             'user_id' => $user_id,
             'voucer_code' => $voucher_code,
@@ -60,7 +64,7 @@ class OrderController
 
         $order->orderItems()->createMany($order_items);
 
-        return $order;
+        return response()->json(['message' => 'ok']);
     }
 
     /**

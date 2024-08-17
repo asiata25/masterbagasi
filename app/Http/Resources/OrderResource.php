@@ -16,8 +16,12 @@ class OrderResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'items' => OrderResource::collection($this->whenLoaded('orderItems')),
-            'voucher' => VoucherResource::make($this->whenLoaded('vouchers')),
+            'items' => OrderItemResource::collection($this->whenLoaded('orderItems')),
+            // TODO: add voucher data when bug is solved
+            // 'voucher' => VoucherResource::make($this->whenLoaded('voucher')),
+            'total' => $this->total,
+            'payment' => $this->payment,
+            'status' => $this->status,
         ];
     }
 }

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['voucher_code', 'total', 'payment', 'status', 'user_id'];
+    protected $fillable = ['total', 'payment', 'status', 'user_id', 'voucher_code'];
 
     public function user(): BelongsTo
     {
