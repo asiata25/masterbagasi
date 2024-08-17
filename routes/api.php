@@ -15,7 +15,7 @@ Route::prefix('v1')->group(function () {
 
 
     Route::middleware(['auth:sanctum'])->group(function () {
-        Route::apiResource('orders', OrderController::class)->except('update');
+        Route::apiResource('orders', OrderController::class)->except('show');
         Route::apiResource('vouchers', VoucherController::class);
         Route::apiResource('carts', CartController::class)->except([
             'show',

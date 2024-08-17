@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class OrderController
 {
@@ -68,14 +69,6 @@ class OrderController
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
@@ -86,8 +79,12 @@ class OrderController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Order $order)
     {
-        //
+        Gate::authorize('delete', $order);
+
+        $order->orderItems()->delete();
+        $order->delete();
+        return response()->json(['message' => 'ok']);
     }
 }
