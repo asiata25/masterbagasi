@@ -11,6 +11,8 @@ class OrderItems extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['product_id', 'name', 'price', 'quantity', ''];
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
