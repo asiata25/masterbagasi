@@ -34,7 +34,7 @@ class CartController
         if ($product_exist) {
             $cart->cartItems()
                 ->where('product_id', $validated['product_id'])
-                ->update(['quantity' => $product_exist->quantity]);
+                ->update(['quantity' => $validated['quantity']]);
         } else {
             $cart->cartItems()->create($validated);
         }
@@ -52,7 +52,11 @@ class CartController
         $user = Auth::user();
         $cart = Cart::where('user_id', $user->id)->first();
 
-        $cart->cartItems()->where('product_id', $item_id)->forceDelete();
+        $item = $cart->cartItems()->where('product_id', $item_id);
+        if (!$item->first()) {
+            return response()->json(['messege' => 'data not found'])->setStatusCode(404);
+        }
+        $item->forceDelete();
 
         return response()->json(['messege' => 'ok']);
     }
