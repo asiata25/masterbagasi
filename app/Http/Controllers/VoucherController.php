@@ -51,7 +51,11 @@ class VoucherController implements HasMiddleware
      */
     public function show(Voucher $voucher)
     {
-        return new VoucherResource(Voucher::where('code', $voucher->code)->first());
+        if (!$voucher) {
+            return response()->json(['message' => 'no data found'])->setStatusCode(404);
+        }
+        
+        return new VoucherResource($voucher);
     }
 
     /**

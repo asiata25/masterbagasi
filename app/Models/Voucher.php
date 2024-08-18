@@ -11,7 +11,7 @@ class Voucher extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['code', 'active_at', 'expired_at', 'amount'];
+    protected $fillable = ['code', 'active_at', 'expired_at', 'amount', 'status'];
     
     protected $primaryKey = 'code';
     public $incrementing = false;
@@ -19,5 +19,16 @@ class Voucher extends Model
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        $post = $this->where($field ?? $this->getRouteKeyName(), $value)->first();
+
+        if (!$post) {
+            abort(response()->json(['message' => 'data not found'], 404));
+        }
+
+        return $post;
     }
 }
