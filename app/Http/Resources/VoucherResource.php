@@ -15,11 +15,11 @@ class VoucherResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "code" => $this->code,
-            "active_at"=> $this->active_at,
-            "expired_at"=> $this->expired_at,
-            "status"=> $this->status,
-            "amount"=> $this->amount,
+            'code' => $this->code,
+            'active_at' => $this->active_at,
+            'expired_at' => $this->expired_at,
+            'status' => $this->status,
+            'amount' => $this->amount,
         ];
     }
 }

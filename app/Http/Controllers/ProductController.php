@@ -10,14 +10,13 @@ use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-use Illuminate\Support\Facades\Gate;
 
 class ProductController implements HasMiddleware
 {
     public static function middleware(): array
     {
         return [
-            new Middleware('auth:sanctum', except: ['index', 'show']),
+            new Middleware(['auth:sanctum', 'adminOnly'], except: ['index', 'show']),
         ];
     }
 
@@ -57,7 +56,7 @@ class ProductController implements HasMiddleware
         $product->update($validated);
 
         return response()->json([
-            'message' => 'ok'
+            'message' => 'ok',
         ]);
     }
 
@@ -69,7 +68,7 @@ class ProductController implements HasMiddleware
         $product->delete();
 
         return response()->json([
-            'message' => 'ok'
+            'message' => 'ok',
         ]);
     }
 }

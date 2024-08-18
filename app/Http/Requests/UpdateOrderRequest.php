@@ -23,7 +23,7 @@ class UpdateOrderRequest extends FormRequest
     {
         return [
             'payment' => ['required', 'string'],
-            'status' => ['required','in:unpaid,paid,cancel']
+            'status' => ['required', 'in:unpaid,paid,cancel'],
         ];
     }
 }

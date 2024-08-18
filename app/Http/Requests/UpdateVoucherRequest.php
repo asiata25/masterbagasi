@@ -25,7 +25,7 @@ class UpdateVoucherRequest extends FormRequest
             'active_at' => ['date', 'after:today'],
             'expired_at' => ['date', 'after:active_at'],
             'amount' => ['integer', 'gt:0'],
-            'status' => ['in:upcoming,active,expired']
+            'status' => ['in:upcoming,active,expired'],
         ];
     }
 }

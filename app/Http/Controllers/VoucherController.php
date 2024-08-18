@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateVoucherRequest;
 use App\Http\Resources\VoucherResource;
 use App\Models\Voucher;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
@@ -42,7 +41,7 @@ class VoucherController implements HasMiddleware
         ]);
 
         return response()->json([
-            "message" => "ok",
+            'message' => 'ok',
         ])->setStatusCode(201);
     }
 
@@ -51,10 +50,10 @@ class VoucherController implements HasMiddleware
      */
     public function show(Voucher $voucher)
     {
-        if (!$voucher) {
+        if (! $voucher) {
             return response()->json(['message' => 'no data found'])->setStatusCode(404);
         }
-        
+
         return new VoucherResource($voucher);
     }
 
@@ -65,10 +64,10 @@ class VoucherController implements HasMiddleware
     {
         $validated = $request->validated();
 
-        $data=  $voucher->update($validated);
+        $voucher->update($validated);
 
         return response()->json([
-            "message" => 'ok',
+            'message' => 'ok',
         ]);
     }
 
@@ -78,6 +77,7 @@ class VoucherController implements HasMiddleware
     public function destroy(Voucher $voucher)
     {
         $voucher->delete();
+
         return response()->json(['message' => 'ok']);
     }
 }

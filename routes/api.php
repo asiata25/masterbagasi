@@ -13,13 +13,12 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('products', ProductController::class);
 
-
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::apiResource('orders', OrderController::class)->except(['show']);
         Route::apiResource('vouchers', VoucherController::class);
         Route::apiResource('carts', CartController::class)->except([
             'show',
-            'update'
+            'update',
         ]);
         Route::post('/logout', [AuthController::class, 'logout']);
     });

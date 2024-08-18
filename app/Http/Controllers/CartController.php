@@ -5,10 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
-use App\Models\CartItem;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CartController
@@ -43,7 +40,7 @@ class CartController
         }
 
         return response()->json([
-            "message" => "ok"
+            'message' => 'ok',
         ]);
     }
 
@@ -57,6 +54,6 @@ class CartController
 
         $cart->cartItems()->where('product_id', $item_id)->forceDelete();
 
-        return response()->json(["messege" => 'ok']);
+        return response()->json(['messege' => 'ok']);
     }
 }

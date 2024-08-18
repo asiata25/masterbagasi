@@ -15,7 +15,7 @@ return new class extends Migration
             $table->enum(column: 'status', allowed: ['paid', 'unpaid', 'cancel', 'new'])->default('new');
         });
     }
-    
+
     /**
      * Reverse the migrations.
      */

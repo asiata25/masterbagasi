@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Voucher;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -60,7 +59,7 @@ class OrderController
                 'name' => $item['name'],
                 'price' => $item['price'],
                 'quantity' => $item['quantity'],
-                'order_id' => $order->id
+                'order_id' => $order->id,
             ]);
         }
 
@@ -90,6 +89,7 @@ class OrderController
 
         $order->orderItems()->delete();
         $order->delete();
+
         return response()->json(['message' => 'ok']);
     }
 }

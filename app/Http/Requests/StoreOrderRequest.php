@@ -23,7 +23,7 @@ class StoreOrderRequest extends FormRequest
     {
         return [
             'voucher_code' => ['exists:vouchers,code'],
-            'total' => ['required','integer'],
+            'total' => ['required', 'integer'],
             'order_items' => ['required', 'array'],
             'order_items.*.product_id' => ['required', 'exists:products,id'],
             'order_items.*.name' => ['required', 'string'],
