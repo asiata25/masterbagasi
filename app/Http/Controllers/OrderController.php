@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\Voucher;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -19,6 +20,10 @@ class OrderController
     {
         $user_id = Auth::id();
         $cart = Order::where('user_id', $user_id)->with('orderItems.product')->first();
+
+        if (! $cart) {
+            return response()->json(['message' => 'data nor found'])->setStatusCode(404);
+        }
 
         return new OrderResource($cart);
     }
@@ -39,6 +44,10 @@ class OrderController
             $voucher = Voucher::find($validated['voucher_code']);
 
             if ($voucher) {
+                if ($voucher->status != 'active' || $voucher->expired_at < Carbon::now()) {
+                    return response()->json(['message' => 'voucher can not be used'])->setStatusCode(400);
+                }
+
                 $voucher_code = $voucher->code;
                 $total -= $voucher->amount;
                 $total = max($total, 0);

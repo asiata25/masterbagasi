@@ -53,7 +53,7 @@ class CartController
         $cart = Cart::where('user_id', $user->id)->first();
 
         $item = $cart->cartItems()->where('product_id', $item_id);
-        if (!$item->first()) {
+        if (! $item->first()) {
             return response()->json(['messege' => 'data not found'])->setStatusCode(404);
         }
         $item->forceDelete();

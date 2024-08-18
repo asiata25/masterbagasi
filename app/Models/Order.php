@@ -28,4 +28,15 @@ class Order extends Model
     {
         return $this->hasMany(OrderItems::class);
     }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        $data = $this->where($field ?? $this->getRouteKeyName(), $value)->first();
+
+        if (! $data) {
+            abort(response()->json(['message' => 'data not found'], 404));
+        }
+
+        return $data;
+    }
 }
