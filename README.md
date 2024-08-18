@@ -78,4 +78,4 @@ git clone https://github.com/asiata25/Masterbagasi.git
 
 ## API Documentation
 
--   **Postman Collection:** The Postman collection for testing the API is available in the [postman_collection](docs/) file.
+-   **Postman Collection:** The Postman collection for testing the API is available in the [postman_collection](docs/masterbagasi.postman_collection.json) file.
