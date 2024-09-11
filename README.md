@@ -14,6 +14,9 @@ This application is built with:
 
 ## Getting Started
 
+### ERD
+![ERD](docs/ERD_Masterbagasi.png)
+
 ### 1. Clone the Repositories
 
 First, clone this repository and the frontend repository to your local machine:
